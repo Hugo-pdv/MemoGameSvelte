@@ -50,7 +50,7 @@
     .background {
         position: absolute;
         background: white;
-        border: 0.5em solid #eee;
+        border: 0.5em solid var(--accent);
         transform: rotateY(180deg);
         backface-visibility: hidden;
         width: 100%;

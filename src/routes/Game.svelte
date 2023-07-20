@@ -7,15 +7,13 @@
   import type { Level } from "./levels";
   import { shuffle } from "./utils";
 
-  const level = levels[0];
-
   const dispatch = createEventDispatcher();
 
-  let size: number = level.size;
-  let grid: string[] = create_grid(level);
+  let size: number;
+  let grid: string[] = [];
   let found: string[] = [];
-  let remaining: number = level.duration;
-  let duration: number = level.duration;
+  let remaining = 0;
+  let duration = 0;
   let playing: boolean = false;
 
   export function start(level: Level){
@@ -26,7 +24,7 @@
     resume();
   }
 
-  function resume() {
+  export function resume() {
     playing = true;
     countdown();
 
@@ -57,31 +55,33 @@
     let remaining_at_start = remaining;
 
     function loop() {
-        if (playing) return;
+        if (!playing) return;
         requestAnimationFrame(loop);
 
         remaining = remaining_at_start - (Date.now() - start);
 
         if (remaining <= 0) {
-             //TODO  the game has been lost
+             dispatch('perdu')
             playing = false;
         }
     }
 
     loop();
   }
-
-  onMount(countdown);
 </script>
-<div class="game">
+<div class="game" style="--size: {size}">
     <div class="info">
-        <Countdown
-            {remaining}
-            duration={level.duration}
-            on:click={() => {  
-                //TODO pause the game
-        }} 
-        />
+        {#if playing}
+            <Countdown
+                {remaining}
+                {duration}
+                on:click={() => {  
+                    playing = false;
+                    dispatch('pause');
+                }} 
+            />
+        {/if}
+ 
     </div>
 
     <div class="grid-container">
@@ -91,7 +91,7 @@
                 found= [...found, e.detail.emoji];
 
                 if (found.length === size * size / 2) {
-                    //TODO win the game
+                    dispatch('gagné');
                 }
             }}
             {found}

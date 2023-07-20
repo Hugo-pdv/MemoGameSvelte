@@ -6,15 +6,16 @@
 
 
 <style>
-    .modal-background {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        backdrop-filter: blur(10px);
-        display: grid;
-        place-items: center;
-        z-index: 999;
-    }
+   .modal-background {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		left: 0;
+		top: 0;
+		display: grid;
+		place-items: center;
+		backdrop-filter: blur(10px);
+		z-index: 999;
+		transition: all 0.2s;
+	}
 </style>
