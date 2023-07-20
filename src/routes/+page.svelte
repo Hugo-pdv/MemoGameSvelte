@@ -28,7 +28,7 @@
   {#if state !== 'playing'}
       <Modal>
         <header>
-            <h1>M<span>emoj</span>i</h1>
+            <h1>M<span>emoj</span>ii</h1>
             <p> le jeu d'association d'Emoji </p>
         </header>
 
