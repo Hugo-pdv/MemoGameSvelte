@@ -3,6 +3,7 @@
   import Countdown from "./Countdown.svelte";
   import Found from "./Found.svelte";
   import Grid from "./Grid.svelte";
+
   import type { Level } from "./levels";
   import { shuffle } from "./utils";
 
@@ -44,23 +45,6 @@
     dispatch("play");
   }
 
-  function create_grid(level: Level) {
-    const copy = level.emojis.slice();
-    const pairs: string[] = [];
-
-    for (let i = 0; i < level.size ** 2 / 2; i += 1) {
-      const index = Math.floor(Math.random() * copy.length);
-      const emoji = copy[index];
-
-      copy.splice(index, 1);
-      pairs.push(emoji);
-    }
-
-    pairs.push(...pairs);
-
-    return shuffle(pairs);
-  }
-
   function countdown() {
     if (!playing) {
       return; // Stop the countdown if the game is not playing
@@ -99,21 +83,23 @@
   </div>
 
   <div class="grid-container">
-    <Grid
-      {grid}
-      {found}
-      on:found={(e) => {
-        found = [...found, e.detail.emoji];
+    {#key grid}
+      <Grid
+        {grid}
+        {found}
+        on:found={(e) => {
+          found = [...found, e.detail.emoji];
 
-        if (found.length === (size * size) / 2) {
-          playing = false;
-          setTimeout(() => {
+          if (found.length === (size * size) / 2) {
             playing = false;
-            dispatch("gagné");
-          }, 1000);
-        }
-      }}
-    />
+            setTimeout(() => {
+              playing = false;
+              dispatch("gagné");
+            }, 1000);
+          }
+        }}
+      />
+    {/key}
   </div>
 
   <div class="info">
@@ -125,15 +111,17 @@
   .game {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    height: 100%;
+    height: 100vh;
+    overflow-y: hidden;
     font-size: min(1vmin, 0.5rem);
   }
 
   .info {
     width: 80em;
     height: 10em;
+    margin-top: auto;
   }
 
   .grid-container {

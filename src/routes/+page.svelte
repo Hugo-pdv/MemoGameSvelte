@@ -4,9 +4,6 @@
   import Modal from "./Modal.svelte";
   import { levels } from "./levels";
   import { confetti } from "@neoconfetti/svelte";
-  import Found from "./Found.svelte";
-
-  let found: string[] = [];
 
   let state: "waiting" | "playing" | "paused" | "gagné" | "perdu" = "waiting";
 
@@ -19,68 +16,81 @@
   let game: Game;
 </script>
 
-<Game
-  bind:this={game}
-  on:play={() => {
-    state = "playing";
-  }}
-  on:pause={() => {
-    state = "paused";
-  }}
-  on:gagné={() => {
-    state = "gagné";
-  }}
-  on:perdu={() => {
-    state = "perdu";
-  }}
-/>
-{#if state !== "playing"}
-  <Modal>
-    <header>
-      <h1>M<span>emoj</span>ii</h1>
-      <p>le jeu d'association d'Emoji</p>
-    </header>
+<svelte:head>
+  <title>Memojii</title>
+  <meta name="description" content="le jeu d'association d'Emoji" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="twitter:domain" content="emojii.vercel.app" />
+  <meta property="twitter:url" content="https://emojii.vercel.app" />
+  <meta name="twitter:title" content="ematchi" />
+  <meta name="twitter:description" content="le jeu d'association d'Emoji" />
+  <meta name="twitter:image" content="https://ematchi.vercel.app/og.png" />
+</svelte:head>
+<main>
+  <Game
+    bind:this={game}
+    on:play={() => {
+      state = "playing";
+    }}
+    on:pause={() => {
+      state = "paused";
+    }}
+    on:gagné={() => {
+      state = "gagné";
+    }}
+    on:perdu={() => {
+      state = "perdu";
+    }}
+  />
 
-    {#if state === "gagné"}
-      {#each levels.filter((level) => level.label === selectedLevel) as level}
-        <p>! 🎉 tu as {state} en {level.label} 🎉 !</p>
-        <p>Choisissez une autre difficulté ! :</p>
-      {/each}
-      <div
-        class="confetti"
-        use:confetti={{
-          stageWidth: innerWidth,
-          stageHeight: innerHeight,
-        }}
-      />
-    {:else if state === "perdu"}
-      {#each levels.filter((level) => level.label === selectedLevel) as level}
-        <p>.. 😥 tu as {state} en {level.label} 😥 ..</p>
-      {/each}
-    {:else if state === "paused"}
-      <p>pause du jeu</p>
-    {:else if state === "waiting"}
-      <p>choisit une difficulté:</p>
-    {/if}
+  {#if state !== "playing"}
+    <Modal>
+      <header>
+        <h1>M<span>emoj</span>ii</h1>
+        <p>le jeu d'association d'Emoji</p>
+      </header>
 
-    <div class="buttons">
-      {#if state === "paused"}
-        <button on:click={() => game.resume()}>resume</button>
-        <button on:click={() => (state = "waiting")}> quit </button>
-      {:else if state}
-        {#each levels as level}
-          <button
-            on:click={() => {
-              setSelectedLevel(level.label);
-              game.start(level);
-              state = "playing";
-            }}>{level.label}</button
-          >
+      {#if state === "gagné"}
+        {#each levels.filter((level) => level.label === selectedLevel) as level}
+          <p>! 🎉 tu as {state} en {level.label} 🎉 !</p>
+          <p>Choisissez une autre difficulté ! :</p>
         {/each}
+        <div
+          class="confetti"
+          use:confetti={{
+            stageWidth: innerWidth,
+            stageHeight: innerHeight,
+          }}
+        />
+      {:else if state === "perdu"}
+        {#each levels.filter((level) => level.label === selectedLevel) as level}
+          <p>.. 😥 tu as {state} en {level.label} 😥 ..</p>
+        {/each}
+      {:else if state === "paused"}
+        <p>pause du jeu</p>
+      {:else if state === "waiting"}
+        <p>choisit une difficulté:</p>
       {/if}
-    </div>
-  </Modal>
-{/if}
+
+      <div class="buttons">
+        {#if state === "paused"}
+          <button on:click={() => game.resume()}>resume</button>
+          <button on:click={() => (state = "waiting")}> quit </button>
+        {:else}
+          {#each levels as level}
+            <button
+              on:click={() => {
+                setSelectedLevel(level.label);
+                game.start(level);
+                state = "playing";
+              }}>{level.label}</button
+            >
+          {/each}
+        {/if}
+      </div>
+    </Modal>
+  {/if}
+</main>
 
 <style>
   header {

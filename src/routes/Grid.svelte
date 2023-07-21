@@ -7,21 +7,20 @@
 
   const dispatch = createEventDispatcher();
 
-  let a = -1;
-  let b = -1;
+  let a: number;
+  let b: number;
   let reset_timeout: number;
 </script>
 
 <div class="grid">
-  {#each grid as emoji, i}
+  {#each grid as square, i}
     <Square
-      {emoji}
       on:click={() => {
-        clearTimeout(reset_timeout);
-
-        if (a === -1 && b === -1) {
+        if (a > -1 && b > -1) {
+          clearTimeout(reset_timeout);
           a = i;
-        } else if (b === -1) {
+          b = -1;
+        } else if (a > -1) {
           b = i;
 
           if (grid[a] === grid[b]) {
@@ -35,13 +34,13 @@
             }, 1000);
           }
         } else {
-          b = -1;
           a = i;
         }
       }}
+      value={square}
       selected={a === i || b === i}
-      found={found.includes(emoji)}
-      group={grid.indexOf(emoji) === i ? "a" : "b"}
+      found={found.includes(square)}
+      group={i === grid.indexOf(square) ? "a" : "b"}
     />
   {/each}
 </div>

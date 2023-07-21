@@ -2,7 +2,7 @@
   import { get_twemoji_url } from "./utils";
   import { send } from "./transition";
 
-  export let emoji: string;
+  export let value: string;
   export let selected: boolean;
   export let found: boolean;
   export let group: "a" | "b";
@@ -15,9 +15,9 @@
 
   {#if !found}
     <img
-      out:send={{ key: `${emoji}:${group}` }}
-      alt={emoji}
-      src={get_twemoji_url(emoji)}
+      alt={value}
+      src={get_twemoji_url(value)}
+      out:send={{ key: `${value}:${group}` }}
     />
   {/if}
 </div>
