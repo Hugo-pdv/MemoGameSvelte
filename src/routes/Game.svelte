@@ -102,7 +102,7 @@
     {/key}
   </div>
 
-  <div class="info">
+  <div class="info-found">
     <Found {found} />
   </div>
 </div>
@@ -122,6 +122,11 @@
     width: 80em;
     height: 10em;
     margin-top: auto;
+  }
+  .info-found {
+    width: 80em;
+    height: 10em;
+    margin-bottom: auto;
   }
 
   .grid-container {
