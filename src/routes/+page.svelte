@@ -25,7 +25,7 @@
       <meta property="twitter:url" content="https://emojii.vercel.app" />
       <meta name="twitter:title" content="Memojii" />
       <meta name="twitter:description" content="le jeu d'association d'Emoji" />
-      <meta name="twitter:image" content="%sveltekit.assets%/og.png" />
+      <meta name="twitter:image" content="https://emojii.vercel.app/og.png" />
 </svelte:head>
 <main>
       <Game
