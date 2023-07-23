@@ -21,11 +21,11 @@
       <title>Memojii</title>
       <meta name="description" content="le jeu d'association d'Emoji" />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta property="twitter:domain" content="emojii.vercel.app" />
-      <meta property="twitter:url" content="https://emojii.vercel.app" />
+      <meta property="twitter:domain" content="memojii.vercel.app" />
+      <meta property="twitter:url" content="https://memojii.vercel.app" />
       <meta name="twitter:title" content="Memojii" />
       <meta name="twitter:description" content="le jeu d'association d'Emoji" />
-      <meta name="twitter:image" content="https://emojii.vercel.app/og.png" />
+      <meta name="twitter:image" content="https://memojii.vercel.app/og.png" />
 </svelte:head>
 <main>
       <Game
