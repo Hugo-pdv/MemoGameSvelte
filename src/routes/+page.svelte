@@ -23,7 +23,7 @@
       <meta name="twitter:card" content="summary_large_image" />
       <meta property="twitter:domain" content="emojii.vercel.app" />
       <meta property="twitter:url" content="https://emojii.vercel.app" />
-      <meta name="twitter:title" content="ematchi" />
+      <meta name="twitter:title" content="Memojii" />
       <meta name="twitter:description" content="le jeu d'association d'Emoji" />
       <meta name="twitter:image" content="%sveltekit.assets%/og.png" />
 </svelte:head>
