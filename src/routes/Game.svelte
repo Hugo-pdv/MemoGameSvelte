@@ -94,7 +94,9 @@
                                     playing = false;
                                     setTimeout(() => {
                                           playing = false;
-                                          dispatch("gagné");
+                                          dispatch("gagné", {
+                                                duration: duration - remaining,
+                                          });
                                     }, 1000);
                               }
                         }}

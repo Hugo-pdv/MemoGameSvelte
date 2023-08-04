@@ -15,6 +15,7 @@
       }
 
       let game: Game;
+      let gameDuration: number;
 </script>
 
 <svelte:head>
@@ -36,8 +37,9 @@
             on:pause={() => {
                   state = "paused";
             }}
-            on:gagné={() => {
+            on:gagné={(event) => {
                   state = "gagné";
+                  gameDuration = event.detail.duration;
             }}
             on:perdu={() => {
                   state = "perdu";
@@ -47,13 +49,17 @@
       {#if state !== "playing"}
             <Modal>
                   <header>
-                        <h1>M<span>emoj</span>ii</h1>
+                        <h1>M<span>emoji</span>i</h1>
                         <p>le jeu d'association d'Emoji</p>
                   </header>
 
                   {#if state === "gagné"}
                         {#each levels.filter((level) => level.label === selectedLevel) as level}
-                              <p>! 🎉 tu as {state} en {level.label}🎉 !</p>
+                              <p>
+                                    🎉 Tu as {state} en {level.label} en {gameDuration /
+                                          1000}
+                                    secondes 🎉
+                              </p>
                               <p>Choisissez une autre difficulté ! :</p>
                         {/each}
                         <div
@@ -68,17 +74,17 @@
                               <p>.. 😥 tu as {state} en {level.label} 😥 ..</p>
                         {/each}
                   {:else if state === "paused"}
-                        <p>pause du jeu</p>
+                        <p>pause du jeu :</p>
                   {:else if state === "waiting"}
-                        <p>choisit une difficulté:</p>
+                        <p>choisit une difficulté :</p>
                   {/if}
                   <div class="buttons">
                         {#if state === "paused"}
                               <button on:click={() => game.resume()}>
-                                    resume
+                                    Reprendre
                               </button>
                               <button on:click={() => (state = "waiting")}>
-                                    quit
+                                    Quitter
                               </button>
                         {:else}
                               {#each levels as level}
