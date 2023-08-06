@@ -51,7 +51,7 @@ h1 {
       --accent: hsl(60, 48%, 49%);
       --coutdown-duration-color: #ccc;
       --coutdown-remaining-color: #999;
-      --button-bg-color-recto: #eee;
+      --button-bg-color-recto: #ccc;
       --button-bg-color-verso: white;
       --bg-color: #ffffff;
       --text-color: black;
