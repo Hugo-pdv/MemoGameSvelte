@@ -41,6 +41,7 @@
             background: white;
             padding: 1em;
             border-radius: 50%;
+            border: 0.1em solid var(--accent);
       }
 
       img {

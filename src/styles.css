@@ -9,22 +9,64 @@ html,
 body {
       height: 100%;
       margin: 0;
-      background-color: #ffffff0c;
+      background-color: var(--bg-color);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
             Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
             sans-serif;
+}
+
+.square button {
+      background: var(--button-bg-color-recto);
+}
+
+.square .background {
+      background: var(--button-bg-color-verso);
+}
+
+.countdown .duration {
+      background: var(--coutdown-duration-color);
+}
+.countdown .remaining {
+      background: var(--coutdown-remaining-color);
+}
+
+.found .pair {
+      background: var(--found-color);
+}
+
+.page-title {
+      color: var(--text-color);
+}
+
+.page-paragraph {
+      color: var(--page-paragraph-color);
 }
 
 h1 {
       font-family: Grandstander;
 }
 
-:root {
-      --bg-1: #fff;
-      --bg-2: #eee;
-      --bg-3: #777;
-      --fg: #222;
-      --card-border: #222;
-      --card-border-found: #777;
+:root,
+.light-theme {
       --accent: hsl(60, 48%, 49%);
+      --coutdown-duration-color: #ccc;
+      --coutdown-remaining-color: #999;
+      --button-bg-color-recto: #eee;
+      --button-bg-color-verso: white;
+      --bg-color: #ffffff;
+      --text-color: black;
+      --page-paragraph-color: black;
+      --found-color: white;
+}
+
+.dark-theme {
+      --accent: hsl(60, 48%, 49%);
+      --coutdown-duration-color: #333333;
+      --coutdown-remaining-color: var(--accent);
+      --button-bg-color-recto: #333333;
+      --button-bg-color-verso: #636363;
+      --bg-color: #111;
+      --text-color: white;
+      --page-paragraph-color: white;
+      --found-color: #636363;
 }
