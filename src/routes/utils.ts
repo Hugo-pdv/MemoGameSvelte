@@ -21,17 +21,46 @@ export function get_twemoji_url(emoji: string) {
 }
 
 export async function saveScore(username: string, score: number, level: string) {
-      try {
+  try {
+    const lowerCaseUsername = username.toLowerCase();
+
+    const { data: existingUser, error: fetchError } = await supabase
+      .from('leaderboard')
+      .select('*')
+      .eq('username', lowerCaseUsername)
+      .eq('level', level)
+      .single();
+
+    if (fetchError && fetchError.code !== 'PGRST116') {
+      throw fetchError;
+    }
+
+    if (existingUser) {
+      if (score < existingUser.score) {
         const { data, error } = await supabase
           .from('leaderboard')
-          .insert([{ username, score, level, timestamp: new Date() }]);
-    
-        if (error) {
-          throw error;
-        }
-    
-        console.log('Score sauvegardé avec succès !', data);
-      } catch (error) {
-        console.error('Erreur lors de la sauvegarde du score :', error);
+          .update({ score, timestamp: new Date() })
+          .eq('username', lowerCaseUsername)
+          .eq('level', level);
+
+        if (error) throw error;
+        console.log('Score amélioré et mis à jour !');
+        return true;
+      } else {
+        console.log('Le nouveau score n\'est pas meilleur. Pas de mise à jour.');
+        return false;
       }
+    } else {
+      const { data, error } = await supabase
+        .from('leaderboard')
+        .insert([{ username: lowerCaseUsername, score, level, timestamp: new Date() }]);
+
+      if (error) throw error;
+      console.log('Nouveau score enregistré !');
+      return true;
     }
+  } catch (error) {
+    console.error('Erreur lors de la sauvegarde du score :', error);
+    throw error;
+  }
+}

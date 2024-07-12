@@ -21,6 +21,7 @@
 	"type": "module",
 	"dependencies": {
 		"@fontsource/grandstander": "^5.0.5",
-		"@neoconfetti/svelte": "^1.0.0"
+		"@neoconfetti/svelte": "^1.0.0",
+		"@supabase/supabase-js": "^2.44.3"
 	}
 }

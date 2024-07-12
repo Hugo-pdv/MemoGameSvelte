@@ -17,4 +17,15 @@
             z-index: 999;
             transition: all 0.2s;
       }
+
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1em;
+    max-width: 90vw;
+    margin: 0 auto;
+  }
 </style>
