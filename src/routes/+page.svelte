@@ -139,7 +139,6 @@
 
   {#if state !== "playing"}
   <Modal>
-    <div class="modal-content">
       <header>
         <h1 class="page-title">M<span>emoji</span>i</h1>
         <p class="page-paragraph">
@@ -215,7 +214,6 @@
           {/each}
         {/if}
       </div>
-    </div>
     </Modal>
   {/if}
 </main>

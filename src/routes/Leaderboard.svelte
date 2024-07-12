@@ -65,30 +65,40 @@
     {/if}
   </div>
 </div>
-
 <style>
   .leaderboard {
     margin-top: 1em;
     color: var(--text-color);
     width: 100%;
-    max-width: min(90vw, 600px);
+    max-width: min(95vw, 600px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h3 {
+    text-align: center;
+    margin-bottom: 0.5em;
+    font-size: min(4vw, 1.5rem);
   }
 
   .table-container {
     max-height: min(30vh, 300px);
     overflow-y: auto;
+    width: 100%;
   }
 
   table {
     width: 100%;
     border-collapse: collapse;
-    font-size: min(2.5vw, 1rem);
+    font-size: min(3vw, 1rem);
+    margin: 0 auto;
   }
 
   th, td {
     padding: 0.3em;
     border: 1px solid var(--accent);
-    text-align: left;
+    text-align: center;
   }
 
   th {
@@ -97,6 +107,25 @@
     position: sticky;
     top: 0;
     z-index: 1;
+  }
+
+  @media (max-width: 600px) {
+    .leaderboard {
+      max-width: 100%;
+      padding: 0 10px;
+    }
+    
+    h3 {
+      font-size: 1rem;
+    }
+
+    table {
+      font-size: 0.8rem;
+    }
+
+    th, td {
+      padding: 0.2em;
+    }
   }
 
   @media (min-width: 1200px) {
