@@ -1,3 +1,5 @@
+import { supabase } from '../supabase';
+
 export function shuffle<T>(array: T[]) {
       let i = array.length;
 
@@ -17,3 +19,19 @@ export function get_twemoji_url(emoji: string) {
             .join("-");
       return `/twemoji/${code}.svg`;
 }
+
+export async function saveScore(username: string, score: number, level: string) {
+      try {
+        const { data, error } = await supabase
+          .from('leaderboard')
+          .insert([{ username, score, level, timestamp: new Date() }]);
+    
+        if (error) {
+          throw error;
+        }
+    
+        console.log('Score sauvegardé avec succès !', data);
+      } catch (error) {
+        console.error('Erreur lors de la sauvegarde du score :', error);
+      }
+    }
