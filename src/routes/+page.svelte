@@ -115,7 +115,7 @@
   <meta name="twitter:description" content="le jeu d'association d'Emoji" />
   <meta name="twitter:image" content="https://memojii.vercel.app/og.png" />
 </svelte:head>
-<main>
+<main class="game-container">
   <Game
     bind:this={game}
     on:play={() => {

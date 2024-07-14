@@ -42,24 +42,26 @@
   <h3>Meilleurs scores pour le niveau {selectedLevel}</h3>
   <div class="table-container">
     {#if filteredLeaderboard.length > 0}
-      <table>
-        <thead>
-          <tr>
-            <th>Rang</th>
-            <th>Nom</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {#each filteredLeaderboard as score, index}
+      <div class="table-wrapper">
+        <table>
+          <thead>
             <tr>
-              <td>{index + 1}</td>
-              <td>{score.username}</td>
-              <td>{score.score / 1000}s</td>
+              <th>Rang</th>
+              <th>Nom</th>
+              <th>Score</th>
             </tr>
-          {/each}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {#each filteredLeaderboard as score, index}
+              <tr>
+                <td>{index + 1}</td>
+                <td>{score.username}</td>
+                <td>{score.score / 1000}s</td>
+              </tr>
+            {/each}
+          </tbody>
+        </table>
+      </div>
     {:else}
       <p>Aucun score enregistré pour ce niveau.</p>
     {/if}
@@ -67,10 +69,10 @@
 </div>
 <style>
   .leaderboard {
-    margin-top: 1em;
+    margin-top: 0.5em; /* Reduced margin */
     color: var(--text-color);
     width: 100%;
-    max-width: min(95vw, 600px);
+    max-width: min(90vw, 500px); /* Reduced max-width */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -78,25 +80,29 @@
 
   h3 {
     text-align: center;
-    margin-bottom: 0.5em;
-    font-size: min(4vw, 1.5rem);
+    margin-bottom: 0.3em; /* Reduced margin */
+    font-size: min(3vw, 1.2rem); /* Reduced font size */
   }
 
   .table-container {
-    max-height: min(30vh, 300px);
-    overflow-y: auto;
     width: 100%;
+    overflow-x: auto;
+  }
+
+  .table-wrapper {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    overflow: hidden;
   }
 
   table {
     width: 100%;
     border-collapse: collapse;
-    font-size: min(3vw, 1rem);
-    margin: 0 auto;
+    font-size: min(2.5vw, 0.9rem); /* Reduced font size */
   }
 
   th, td {
-    padding: 0.3em;
+    padding: 0.2em; /* Reduced padding */
     border: 1px solid var(--accent);
     text-align: center;
   }
@@ -109,34 +115,49 @@
     z-index: 1;
   }
 
+  tbody {
+    display: block;
+    max-height: 5em; /* Adjusted height */
+    overflow-y: auto;
+  }
+
+  tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
   @media (max-width: 600px) {
     .leaderboard {
       max-width: 100%;
-      padding: 0 10px;
+      padding: 0 5px; /* Reduced padding */
     }
     
     h3 {
-      font-size: 1rem;
+      font-size: 0.9rem; /* Reduced font size */
     }
 
     table {
-      font-size: 0.8rem;
+      font-size: 0.7rem; /* Reduced font size */
     }
 
     th, td {
-      padding: 0.2em;
+      padding: 0.1em; /* Reduced padding */
     }
   }
 
   @media (min-width: 1200px) {
     .leaderboard {
-      max-width: 800px;
-    }
-    .table-container {
-      max-height: 400px;
+      max-width: 700px; /* Reduced max-width */
     }
     table {
-      font-size: 1.2rem;
+      font-size: 1rem; /* Reduced font size */
     }
   }
 </style>

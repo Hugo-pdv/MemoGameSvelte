@@ -110,29 +110,24 @@
 </div>
 
 <style>
-  .game {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    height: 100vh;
-    overflow-y: hidden;
-    font-size: min(1vmin, 0.5rem);
-  }
-
-  .info {
-    width: 80em;
-    height: 10em;
-    margin-top: auto;
-  }
-  .info-found {
-    width: 80em;
-    height: 10em;
-    margin-bottom: auto;
-  }
-
-  .grid-container {
-    width: 80em;
-    height: 80em;
-  }
-</style>
+      .game {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 100vh;
+        padding: 2vh 0;
+        font-size: min(1vw, 0.5rem);
+      }
+    
+      .info, .info-found {
+        width: 80vmin;
+        height: 8vh;
+      }
+    
+      .grid-container {
+        width: 80vmin;
+        height: 80vmin;
+        max-height: 76vh;
+      }
+    </style>
