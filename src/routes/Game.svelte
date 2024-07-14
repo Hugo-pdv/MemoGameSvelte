@@ -69,65 +69,79 @@
 </script>
 
 <div class="game" style="--size: {size}">
-  <div class="info">
-    {#if playing}
-      <Countdown
-        {remaining}
-        {duration}
-        on:click={() => {
-          playing = false;
-          dispatch("pause");
-        }}
-      />
-    {/if}
-  </div>
+  <div class="game-content">
+    <div class="grid-container">
+      {#key grid}
+        <Grid
+          {grid}
+          {found}
+          on:found={(e) => {
+            found = [...found, e.detail.emoji];
 
-  <div class="grid-container">
-    {#key grid}
-      <Grid
-        {grid}
-        {found}
-        on:found={(e) => {
-          found = [...found, e.detail.emoji];
-
-          if (found.length === (size * size) / 2) {
-            playing = false;
-            setTimeout(() => {
+            if (found.length === (size * size) / 2) {
               playing = false;
-              dispatch("gagné", {
-                duration: duration - remaining,
-              });
-            }, 1000);
-          }
-        }}
-      />
-    {/key}
-  </div>
+              setTimeout(() => {
+                playing = false;
+                dispatch("gagné", {
+                  duration: duration - remaining,
+                });
+              }, 1000);
+            }
+          }}
+        />
+      {/key}
+    </div>
 
-  <div class="info-found">
-    <Found {found} />
+    <div class="info">
+      {#if playing}
+        <Countdown
+          {remaining}
+          {duration}
+          on:click={() => {
+            playing = false;
+            dispatch("pause");
+          }}
+        />
+      {/if}
+    </div>
+
+    <div class="info-found">
+      <Found {found} />
+    </div>
   </div>
 </div>
 
 <style>
-      .game {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        height: 100vh;
-        padding: 2vh 0;
-        font-size: min(1vw, 0.5rem);
-      }
-    
-      .info, .info-found {
-        width: 80vmin;
-        height: 8vh;
-      }
-    
-      .grid-container {
-        width: 80vmin;
-        height: 80vmin;
-        max-height: 76vh;
-      }
-    </style>
+  .game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 2vh 0;
+    font-size: min(1vw, 0.5rem);
+  }
+
+  .game-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .grid-container {
+    width: 80vmin;
+    height: 80vmin;
+    max-height: 76vh;
+    margin-bottom: 1vh;
+  }
+
+  .info {
+    width: 80vmin;
+    height: auto;
+    margin-bottom: 1vh;
+  }
+
+  .info-found {
+    width: 80vmin;
+    height: 8vh;
+  }
+</style>
