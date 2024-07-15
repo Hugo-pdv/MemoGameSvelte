@@ -329,14 +329,15 @@
       font-size: 2.5em;
     }
     .buttons {
-      flex-direction: column;
+      flex-direction: row;
+      justify-content: center;
       align-items: center;
     }
     button {
       font-size: 0.9em;
       padding: 0.5em;
-      width: 100%;
-      max-width: 200px;
+      width: auto;
+      max-width: none;
     }
   }
 
