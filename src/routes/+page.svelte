@@ -103,6 +103,21 @@
     username = ""; // Réinitialiser le nom d'utilisateur
     await fetchLeaderboard(); // Mettre à jour le leaderboard
   }
+
+  function generateShareUrl(platform: string) {
+  const baseUrl = 'https://memojii.vercel.app';
+  const message = `J'ai terminé le niveau ${selectedLevel} de Memojii en ${gameDuration / 1000} secondes ! Peux-tu faire mieux ?`;
+  const encodedMessage = encodeURIComponent(message);
+
+  switch (platform) {
+    case 'twitter':
+      return `https://twitter.com/intent/tweet?text=${encodedMessage}&url=${baseUrl}`;
+    case 'whatsapp':
+      return `https://api.whatsapp.com/send?text=${encodedMessage} ${baseUrl}`;
+    default:
+      return '';
+  }
+}
 </script>
 
 <svelte:head>
@@ -171,6 +186,15 @@
           <div class="save-score-container">
             <input bind:value={username} placeholder="Entrez votre nom" />
             <button on:click={handleSaveScore}>Sauvegarder le score</button>
+          </div>
+          <div class="share-buttons">
+            <p class="page-paragraph">Partager votre score :</p>
+            <button on:click={() => window.open(generateShareUrl('twitter'), '_blank')}>
+              Partager sur Twitter
+            </button>
+            <button on:click={() => window.open(generateShareUrl('whatsapp'), '_blank')}>
+              Partager sur WhatsApp
+            </button>
           </div>
           <p class="page-paragraph">Choisissez une autre difficulté :</p>
         {/each}
@@ -268,34 +292,34 @@
   }
 
   .button-darkmode {
-  width: min(2em, 10vw);
-  height: min(2em, 10vw);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto 1em;
-  padding: 0.2em;
-}
+    width: min(2em, 10vw);
+    height: min(2em, 10vw);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 1em;
+    padding: 0.2em;
+  }
 
   svg {
     width: 80%;
     height: 80%;
   }
 
-input {
-  margin: 0 auto 1em;
-  padding: 0.5em;
-  font-size: 1em;
-  width: 100%;
-  max-width: 300px;
-  display: block;
-}
+  input {
+    margin: 0 auto 1em;
+    padding: 0.5em;
+    font-size: 1em;
+    width: 100%;
+    max-width: 300px;
+    display: block;
+  }
 
-.save-score-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  .save-score-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   @media (max-width: 600px) {
     header {
@@ -313,6 +337,142 @@ input {
       padding: 0.5em;
       width: 100%;
       max-width: 200px;
+    }
+  }
+
+  .share-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1em;
+  }
+
+  .share-buttons button {
+    margin: 0.5em;
+    padding: 0.5em 1em;
+    font-size: 0.9em;
+    background-color: var(--accent);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 0.3em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .share-buttons button:hover {
+    background-color: color-mix(in srgb, var(--accent) 90%, black);
+  }
+
+  @media (max-width: 600px) {
+    .share-buttons button {
+      font-size: 0.8em;
+      padding: 0.4em 0.8em;
+    }
+  }
+
+  .game-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1em;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    font-size: 3em;
+    margin-bottom: 0.3em;
+  }
+
+  p {
+    margin-bottom: 0.5em;
+  }
+
+  .buttons {
+    margin-bottom: 0.5em;
+  }
+
+  button {
+    font-size: 0.9em;
+    padding: 0.4em 0.8em;
+  }
+
+  .save-score-container {
+    margin-bottom: 0.25em;
+  }
+
+  .share-buttons {
+    margin-top: 0.5em;
+  }
+
+  .share-buttons button {
+    font-size: 0.8em;
+    padding: 0.3em 0.6em;
+    margin: 0.25em;
+  }
+
+  @media (max-height: 600px) {
+    h1 {
+      font-size: 2em;
+    }
+
+    .page-paragraph {
+      font-size: 0.9em;
+      margin-bottom: 0.3em;
+    }
+
+    .buttons button {
+      font-size: 0.8em;
+      padding: 0.3em 0.6em;
+    }
+  }
+
+  /* Ajout de styles pour les très petits écrans */
+  @media (max-width: 375px) and (max-height: 667px) {
+    .game-container {
+      padding: 0.5em;
+    }
+
+    h1 {
+      font-size: 1.8em;
+      margin-bottom: 0.2em;
+    }
+
+    p, .page-paragraph {
+      font-size: 0.8em;
+      margin-bottom: 0.2em;
+    }
+
+    .buttons {
+      margin-bottom: 0.3em;
+    }
+
+    button, .buttons button {
+      font-size: 0.7em;
+      padding: 0.3em 0.5em;
+    }
+
+    .share-buttons {
+      margin-top: 0.3em;
+    }
+
+    .share-buttons button {
+      font-size: 0.7em;
+      padding: 0.2em 0.4em;
+      margin: 0.15em;
+    }
+
+    input {
+      font-size: 0.8em;
+      padding: 0.3em;
+      margin-bottom: 0.5em;
+    }
+
+    .button-darkmode {
+      width: 1.5em;
+      height: 1.5em;
+      margin-bottom: 0.5em;
     }
   }
 </style>
