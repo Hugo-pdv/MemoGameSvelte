@@ -23,6 +23,10 @@
         matchSound = new Audio('/sounds/matchSound.wav');
         noMatchSound = new Audio('/sounds/noMatchSound.wav');
       }
+
+      let volumeLevel = 0.2;
+      $: if (matchSound) matchSound.volume = volumeLevel;
+      $: if (noMatchSound) noMatchSound.volume = volumeLevel;
     
       function toggleMute() {
         isMuted = !isMuted;
@@ -34,7 +38,7 @@
       {#each grid as square, i}
         <Square
           on:click={() => {
-            if (!isMuted && flipSound) flipSound.play(); // Jouer le son de flip
+            // if (!isMuted && flipSound) flipSound.play(); // Jouer le son de flip
             if (a > -1 && b > -1) {
               clearTimeout(reset_timeout);
               a = i;
